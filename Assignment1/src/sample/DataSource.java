@@ -15,8 +15,6 @@ public class DataSource {
         while (scanner.hasNext() && valid == false) {
             String token = scanner.next();
 
-
-
         }
         return testFiles;
     }
