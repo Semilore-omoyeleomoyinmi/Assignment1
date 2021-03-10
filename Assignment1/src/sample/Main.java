@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 
@@ -21,12 +22,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Spam Detector");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
-    }
 
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory(new File("."));
+        File mainDirectory = directoryChooser.showDialog(primaryStage);
 
-    public static void main(String[] args) throws FileNotFoundException {
         TrainFile train = new TrainFile();
         train.parseFile(new File("/home/semilore/Desktop/Assignment1/Assignment1/assignment1_data/data/train"));
         int spamfileSize = train.getFolderSize(new File("/home/semilore/Desktop/Assignment1/Assignment1/assignment1_data/data/train/spam"));// size of spam training directory
@@ -37,25 +37,31 @@ public class Main extends Application {
         train.SpamProbability(spamfileSize);
         TreeMap sW = train.CalculatePrSW();
 
-        File file = new File("/home/semilore/Desktop/Assignment1/Assignment1/assignment1_data/data/test");
-
+        File file = mainDirectory;//new File("/home/semilore/Desktop/Assignment1/Assignment1/assignment1_data/data/test");
         Testloop(file, sW);
-        System.out.println(Controller.testFiles.get(0).getFilename());
+
+        primaryStage.setScene(new Scene(root, 800, 400));
+        primaryStage.show();
+    }
+
+
+    public static void main(String[] args) throws FileNotFoundException {
+
         launch(args);
     }
 
-    public static double calculateN(double key){
+    public double calculateN(double key){
         double result;
         result = Math.log(1 - key) - Math.log(key);
         return result;
     }
-    public static double Sf(double N){
+    public double Sf(double N){
         double sf = 1/(1+ Math.pow(Math.E, N));
         return sf;
     }
 
 
-    public static void Testloop(File file, Map key) throws FileNotFoundException {
+    public  void Testloop(File file, Map key) throws FileNotFoundException {
         if (file.isDirectory()) {
             //parse each file inside the directory
             File[] content = file.listFiles();
@@ -71,8 +77,9 @@ public class Main extends Application {
                     N += calculateN((Double) key.get(token));
                 }
             }
+
             double spamFileprob = Sf(N);
-            Controller.testFiles.add(new TestFile(file.getName(), spamFileprob, file.getParent()));
+            Controller.testFiles.add(new TestFile(file.getName(), spamFileprob, file.getParentFile().getName()));
             N = 0.0;
         }
 

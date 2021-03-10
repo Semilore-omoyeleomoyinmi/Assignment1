@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -7,14 +9,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Controller {
+    public  static ObservableList<TestFile> testFiles = FXCollections.observableArrayList();
     @FXML
     private TableView<TestFile> table;
     @FXML
-    private TableColumn file;
+    private TableColumn filename;
     @FXML
     private TableColumn actualClass;
     @FXML
-    private TableColumn spamProb;
+    private TableColumn spamProbability;
     @FXML
     private TextField accuracy;
     @FXML
@@ -24,9 +27,10 @@ public class Controller {
 
     @FXML
     public void initialize() {
-        file.setCellValueFactory(new PropertyValueFactory<>("file"));
+        filename.setCellValueFactory(new PropertyValueFactory<>("filename"));
         actualClass.setCellValueFactory(new PropertyValueFactory<>("actualClass"));
-        spamProb.setCellValueFactory(new PropertyValueFactory<>("spamProb"));
+        spamProbability.setCellValueFactory(new PropertyValueFactory<>("spamProbability"));
+        table.setItems(testFiles);
     }
 
 

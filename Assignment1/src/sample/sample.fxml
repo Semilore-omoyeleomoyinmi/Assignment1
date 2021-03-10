@@ -14,11 +14,11 @@
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
 
-    <TableView fx:id="table" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <TableView fx:id="table" GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth = "620">
         <columns>
-            <TableColumn fx:id="file" text="FILE"></TableColumn>
+            <TableColumn fx:id="filename" text="FILE"></TableColumn>
             <TableColumn fx:id="actualClass" text="Actual Class"></TableColumn>
-            <TableColumn fx:id="spamProb" text="Spam Probability"></TableColumn>
+            <TableColumn fx:id="spamProbability" text="Spam Probability"></TableColumn>
         </columns>
     </TableView>
 
