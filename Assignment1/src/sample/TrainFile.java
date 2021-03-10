@@ -71,7 +71,7 @@ public class TrainFile {
 
     private boolean tokenCheck(String token) {
         // create pattern to check if file is spam
-        String pattern = "[a-zA-Z]*";
+        String pattern = "^[a-zA-Z]+";
         /*String pattern = "GET";
         String pattern2 = "FREE";
          */

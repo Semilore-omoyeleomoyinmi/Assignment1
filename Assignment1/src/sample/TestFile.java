@@ -9,19 +9,14 @@ public class TestFile {
     private String filename;
     private double spamProbability;
     private String actualClass;
-    private TrainFile trainFile;
-    public TestFile(String filename, double spamProbability, String actualClass, TrainFile sw) {
+
+    public TestFile(String filename, double spamProbability, String actualClass) {
         this.filename = filename;
         this.spamProbability = spamProbability;
         this.actualClass = actualClass;
-        this.trainFile = sw;
+
     }
 
-    private boolean tokenCheck(String token, TrainFile sw) {
-        // create pattern to check if file is spam
-        String pattern = sw.CalculatePrSW().get(token).toString();
-        return (token.matches(pattern));
-    }
     public String getFilename(){
         return this.filename;
     }
