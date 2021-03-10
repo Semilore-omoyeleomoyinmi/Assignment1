@@ -36,18 +36,10 @@ public class Main extends Application {
         train.HamProbability(hamfileSize);
         train.SpamProbability(spamfileSize);
         TreeMap sW = train.CalculatePrSW();
-        Map<String, Double> sF = new TreeMap();
-        Set<String> keyspam = sW.keySet();// the keys in a set then loop through to calculate probability
-        for (String keys : keyspam) {
-            double value = (double) sW.get(keys);
-            double sf = 1/(1+ Math.pow(Math.E, calculateN(value)));
-            sF.put(keys, sf);
-        }
-        System.out.println(sF.toString());
 
         File file = new File("/home/semilore/Desktop/Assignment1/Assignment1/assignment1_data/data/test");
 
-        Testloop(file, sF);
+        Testloop(file, sW);
         System.out.println(Controller.testFiles.get(0).getFilename());
         launch(args);
     }
@@ -56,6 +48,10 @@ public class Main extends Application {
         double result;
         result = Math.log(1 - key) - Math.log(key);
         return result;
+    }
+    public static double Sf(double N){
+        double sf = 1/(1+ Math.pow(Math.E, N));
+        return sf;
     }
 
 
@@ -67,14 +63,17 @@ public class Main extends Application {
                 Testloop(current, key);
             }
         } else {
+            double N = 0.0;
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String token = scanner.next();
                 if (key.containsKey(token)) {
-                    Controller.testFiles.add(new TestFile(file.getName(), (Double) key.get(token), file.getParent()));
+                    N += calculateN((Double) key.get(token));
                 }
-
             }
+            double spamFileprob = Sf(N);
+            Controller.testFiles.add(new TestFile(file.getName(), spamFileprob, file.getParent()));
+            N = 0.0;
         }
 
     }
