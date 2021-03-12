@@ -26,15 +26,13 @@ public class TrainFile {
             // create a scanner
             Scanner scanner = new Scanner(file);
             // scan [A-Z]+ \\W*each word in each line
-            boolean valid = false; // valid checks to see if the word has been seen once
-            while (scanner.hasNext() && valid == false) {
+            // valid checks to see if the word has been seen once
+            while (scanner.hasNext() ) {
                 String token = scanner.next();
 
                 // check to see if token is in the trainSpamFreq map, then increase the count
                 if (tokenCheck(token) && file.getParentFile().getName().toString().equals("spam")) {
                     countSpamFreq(token);
-                    // change valid to true
-                    valid = true;
                 }
 
                 // check to see if token is in the trainHamFreq map, then increase the count
@@ -42,8 +40,7 @@ public class TrainFile {
                     if(file.getParentFile().getName().toString().equals("ham") || file.getParentFile().getName().toString().equals("ham2")) {
                         countHamFreq(token);
                     }
-                    // change valid to true
-                    valid = true;
+
                 }
             }
 
@@ -71,7 +68,7 @@ public class TrainFile {
 
     private boolean tokenCheck(String token) {
         // create pattern to check if file is spam
-        String pattern = "^[a-zA-Z]+";
+        String pattern = "^[a-zA-Z]*";
         /*String pattern = "GET";
         String pattern2 = "FREE";
          */

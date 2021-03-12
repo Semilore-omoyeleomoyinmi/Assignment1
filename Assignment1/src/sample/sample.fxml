@@ -23,8 +23,8 @@
     </TableView>
 
     <Label text="Accuracy:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-    <TextField id="accuracy" fx:id="accuracy" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <TextField id ="accuracy" fx:id="acc" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
     <Label text="Precision:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-    <TextField id="precision" fx:id="precision" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+    <TextField id ="precision" fx:id="prec" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
 
 </GridPane>
